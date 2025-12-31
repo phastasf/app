@@ -1,0 +1,28 @@
+<?php
+
+declare(strict_types=1);
+
+use Psr\Http\Message\ResponseFactoryInterface;
+use Tez\Router;
+
+/**
+ * Register application routes.
+ *
+ * @param  Router  $router
+ * @return void
+ */
+return function (Router $router): void {
+
+    $router->route('/', 'HomeController@index');
+
+    $router->route('/about', function ($request, ResponseFactoryInterface $responseFactory) {
+        $response = $responseFactory->createResponse();
+        $response->getBody()->write('about page');
+
+        return $response;
+    });
+
+    $router->route('/error', function () {
+        throw new \Exception('Test error/exception handling');
+    });
+};
