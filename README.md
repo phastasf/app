@@ -103,11 +103,15 @@ The project structure is as explained below:
 ```
 phast-app/
 ├── app/
+│   ├── Commands/            # Console commands
 │   ├── Controllers/         # Application controllers
-│   └── Jobs/                # Queue jobs
+│   ├── Jobs/                # Queue jobs
+│   └── Models/              # Eloquent models
 ├── config/                  # Configuration files (optional overrides)
+├── database/
+│   └── migrations/          # Database migrations
 ├── .docker/                 # Docker configuration files
-│   └── vhost.conf          # Apache virtual host configuration
+│   └── vhost.conf           # Apache virtual host configuration
 ├── public/                  # Web server document root
 │   ├── index.php            # Web entrypoint
 │   └── .htaccess            # Apache rewrite rules
@@ -124,11 +128,19 @@ phast-app/
 └── composer.json
 ```
 
-## Generators
+## Console Commands
 
-There are several commands included in framework:
+### Generators
 
-### Create controller
+#### Create command
+
+Generate a new console command:
+
+```bash
+docker compose exec web php console g:command CreateUser
+```
+
+#### Create controller
 
 Generate a new controller:
 
@@ -136,7 +148,15 @@ Generate a new controller:
 docker compose exec web php console g:controller UserController
 ```
 
-### Creating migration
+#### Create model
+
+Generate a new model:
+
+```bash
+docker compose exec web php console g:model User
+```
+
+#### Create migration
 
 Generate a new migration:
 
@@ -144,7 +164,7 @@ Generate a new migration:
 docker compose exec web php console g:migration create_users_table
 ```
 
-### Creating job
+#### Create job
 
 Generate a new job class:
 
@@ -152,15 +172,41 @@ Generate a new job class:
 docker compose exec web php console g:job SendEmail
 ```
 
-### Running migrations
+### Database
 
-Run database migrations:
+#### Run migrations
+
+Run pending migrations:
 
 ```bash
-docker compose exec web php console migrate
+docker compose exec web php console m:up
 ```
 
-### Running queue workers
+#### Rollback migrations
+
+Rollback migrations (default: 1):
+
+```bash
+docker compose exec web php console m:down
+```
+
+Rollback multiple migrations:
+
+```bash
+docker compose exec web php console m:down 3
+```
+
+### Development
+
+#### Start development server
+
+Start the development server:
+
+```bash
+docker compose exec web php console serve
+```
+
+#### Run queue worker
 
 Start a queue worker:
 
@@ -178,7 +224,7 @@ Environment variables are configured in the `.env` file. The `.env.example` file
 - Redis connection uses `redis` as hostname (Docker service name)
 - All services are accessible via `.local.dev` domain with SSL certificates
 
-### Database Configuration
+### Database
 
 The default database configuration in `.env.example`:
 
@@ -187,7 +233,7 @@ The default database configuration in `.env.example`:
 - **Username**: `phastapp`
 - **Password**: `phastapp`
 
-### Mail Configuration
+### Emails
 
 MailCatcher is configured to catch all emails. Configure your `.env` to use SMTP:
 

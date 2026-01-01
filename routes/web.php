@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Jobs\SendEmailJob;
 use Psr\Http\Message\ResponseFactoryInterface;
-use Qatar\Queue;
 use Tez\Router;
 
 /**
@@ -17,11 +15,7 @@ return function (Router $router): void {
 
     $router->route('/', 'HomeController@index');
 
-    $router->route('/email', function ($request, Queue $queue, ResponseFactoryInterface $responseFactory) {
-        $queue->push(SendEmailJob::class, [
-            'to' => 'name@example.com',
-        ]);
-
+    $router->route('/email', function ($request, ResponseFactoryInterface $responseFactory) {
         $response = $responseFactory->createResponse();
         $response->getBody()->write('OK');
 
