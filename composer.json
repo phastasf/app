@@ -1,37 +1,37 @@
 {
-    "name": "phastasf/app",
-    "description": "A skeleton application for Phast Framework - a lightweight, modern PHP framework built on PSR standards",
-    "type": "project",
-    "keywords": [
-        "phast",
-        "framework",
-        "skeleton",
-        "app",
-        "php",
-        "psr",
-        "mvc",
-        "application"
-    ],
-    "license": "MIT",
-    "require": {
-        "php": "^8.2",
-        "phastasf/framework": "^1.0",
-        "vlucas/phpdotenv": "^5.6"
-    },
-    "autoload": {
-        "psr-4": {
-            "App\\": "app/"
-        }
-    },
-    "scripts": {
-        "serve": "php console serve"
-    },
-    "config": {
-        "optimize-autoloader": true,
-        "preferred-install": "dist",
-        "sort-packages": true,
-        "allow-plugins": {}
-    },
-    "minimum-stability": "stable",
-    "prefer-stable": true
+  "name": "phastasf/app",
+  "description": "A skeleton application for Phast Framework - a lightweight, modern PHP framework built on PSR standards",
+  "type": "project",
+  "keywords": [
+    "phast",
+    "framework",
+    "skeleton",
+    "app",
+    "php",
+    "psr",
+    "mvc",
+    "application"
+  ],
+  "license": "MIT",
+  "require": {
+    "php": "^8.2",
+    "phastasf/framework": "^1.0",
+    "vlucas/phpdotenv": "^5.6"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/"
+    }
+  },
+  "scripts": {
+    "serve": "php console serve"
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "preferred-install": "dist",
+    "sort-packages": true,
+    "allow-plugins": {}
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
 }
