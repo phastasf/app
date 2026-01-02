@@ -218,6 +218,14 @@ Start a queue worker:
 docker compose exec worker php console worker
 ```
 
+#### Clear cache
+
+Clear cached config, routes, and application cache:
+
+```bash
+docker compose exec web php console uncache
+```
+
 ## Configuration
 
 Configuration files can be placed in the `config/` directory to override framework defaults. The framework loads default configurations from the package and merges your project-specific overrides.
