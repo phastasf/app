@@ -107,7 +107,7 @@ phast-app/
 │   ├── Commands/            # Console commands
 │   ├── Controllers/         # Application controllers
 │   ├── Jobs/                # Queue jobs
-│   └── Models/              # Eloquent models
+│   └── Models/              # Database models
 ├── config/                  # Configuration files (optional overrides)
 ├── database/
 │   └── migrations/          # Database migrations
