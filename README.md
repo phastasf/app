@@ -108,6 +108,7 @@ phast-app/
 │   ├── Controllers/         # Application controllers
 │   ├── Events/              # Event classes
 │   ├── Jobs/                # Queue jobs
+│   ├── Middleware/          # Custom middleware
 │   ├── Models/              # Database models
 │   └── Providers/           # Service providers
 ├── config/                  # Configuration files (optional overrides)
@@ -262,6 +263,27 @@ Environment variables are configured in the `.env` file. The `.env.example` file
 - Database connection uses `mysql` as hostname (Docker service name)
 - Redis connection uses `redis` as hostname (Docker service name)
 - All services are accessible via `.local.dev` domain with SSL certificates
+
+### Middleware
+
+The `config/middleware.php` file is automatically copied from the framework during `composer install` or `composer update` if it doesn't exist. This file defines the middleware pipeline that processes HTTP requests:
+
+```php
+<?php
+
+return [
+    // Core middleware (required for framework to work)
+    \Phast\Middleware\ErrorHandlerMiddleware::class,
+    \Phast\Middleware\SessionMiddleware::class,
+    // \Phast\Middleware\AuthMiddleware::class,  // Uncomment to enable authentication
+    // Add your custom middleware here
+    // \App\Middleware\CustomMiddleware::class,
+    \Phast\Middleware\RoutingMiddleware::class,
+    \Phast\Middleware\DispatcherMiddleware::class,
+];
+```
+
+Middleware is executed in the order defined in the array. Core middleware must remain in their positions for the framework to function correctly.
 
 ### Service Providers
 
