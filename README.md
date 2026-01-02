@@ -188,6 +188,14 @@ Generate a new event class:
 docker compose exec web php console g:event UserRegistered
 ```
 
+#### Create middleware
+
+Generate a new middleware class:
+
+```bash
+docker compose exec web php console g:middleware CustomMiddleware
+```
+
 #### Create service provider
 
 Generate a new service provider:
@@ -265,6 +273,14 @@ Environment variables are configured in the `.env` file. The `.env.example` file
 - All services are accessible via `.local.dev` domain with SSL certificates
 
 ### Middleware
+
+Middleware allows you to intercept and modify HTTP requests and responses. Create a custom middleware using the generator:
+
+```bash
+docker compose exec web php console g:middleware CustomMiddleware
+```
+
+This will create a middleware in `app/Middleware/` that implements `Psr\Http\Server\MiddlewareInterface`.
 
 The `config/middleware.php` file is automatically copied from the framework during `composer install` or `composer update` if it doesn't exist. This file defines the middleware pipeline that processes HTTP requests:
 
