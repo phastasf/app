@@ -219,6 +219,14 @@ Start a queue worker:
 docker compose exec worker php console worker
 ```
 
+#### Interactive shell
+
+Start an interactive PHP shell (REPL) with container access:
+
+```bash
+docker compose exec web php console shell
+```
+
 #### Clear cache
 
 Clear cached config, routes, and application cache:
