@@ -15,7 +15,7 @@ return function (Router $router): void {
 
     $router->route('/', 'HomeController@index');
 
-    $router->route('/email', function ($request, ResponseFactoryInterface $responseFactory) {
+    $router->route('/health', function ($request, ResponseFactoryInterface $responseFactory) {
         $response = $responseFactory->createResponse();
         $response->getBody()->write('OK');
 
