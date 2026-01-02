@@ -108,7 +108,8 @@ phast-app/
 │   ├── Controllers/         # Application controllers
 │   ├── Events/              # Event classes
 │   ├── Jobs/                # Queue jobs
-│   └── Models/              # Database models
+│   ├── Models/              # Database models
+│   └── Providers/           # Service providers
 ├── config/                  # Configuration files (optional overrides)
 ├── database/
 │   └── migrations/          # Database migrations
@@ -186,6 +187,14 @@ Generate a new event class:
 docker compose exec web php console g:event UserRegistered
 ```
 
+#### Create service provider
+
+Generate a new service provider:
+
+```bash
+docker compose exec web php console g:provider CustomService
+```
+
 ### Database
 
 #### Run migrations
@@ -253,6 +262,35 @@ Environment variables are configured in the `.env` file. The `.env.example` file
 - Database connection uses `mysql` as hostname (Docker service name)
 - Redis connection uses `redis` as hostname (Docker service name)
 - All services are accessible via `.local.dev` domain with SSL certificates
+
+### Service Providers
+
+Service providers allow you to register services in the dependency injection container. Create a custom provider using the generator:
+
+```bash
+docker compose exec web php console g:provider CustomService
+```
+
+This will create a provider in `app/Providers/` that implements `Phast\Providers\ProviderInterface`. The provider has two methods:
+
+- `provide(Container $container)` - Register services in the container
+- `init(Container $container)` - Initialize services after all providers are registered
+
+The `config/providers.php` file is automatically copied from the framework during `composer install` or `composer update` if it doesn't exist. You can customize it to add your own providers:
+
+```php
+<?php
+
+return [
+    // Framework providers (ConfigProvider must be first)
+    \Phast\Providers\ConfigProvider::class,
+    \Phast\Providers\CacheProvider::class,
+    // ... other framework providers ...
+
+    // Your custom providers
+    \App\Providers\CustomServiceProvider::class,
+];
+```
 
 ### Database
 

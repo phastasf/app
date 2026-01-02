@@ -15,7 +15,7 @@
   "license": "MIT",
   "require": {
     "php": "^8.2",
-    "phastasf/framework": "^1.0",
+    "phastasf/framework": "^1.2",
     "vlucas/phpdotenv": "^5.6"
   },
   "require-dev": {
@@ -27,7 +27,13 @@
     }
   },
   "scripts": {
-    "serve": "php console serve"
+    "serve": "php console serve",
+    "post-install-cmd": [
+      "@php -r \"if (!file_exists('config/providers.php')) copy('vendor/phastasf/framework/config/providers.php', 'config/providers.php');\""
+    ],
+    "post-update-cmd": [
+      "@php -r \"if (!file_exists('config/providers.php')) copy('vendor/phastasf/framework/config/providers.php', 'config/providers.php');\""
+    ]
   },
   "config": {
     "optimize-autoloader": true,
