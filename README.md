@@ -106,6 +106,7 @@ phast-app/
 ├── app/
 │   ├── Commands/            # Console commands
 │   ├── Controllers/         # Application controllers
+│   ├── Events/              # Event classes
 │   ├── Jobs/                # Queue jobs
 │   └── Models/              # Database models
 ├── config/                  # Configuration files (optional overrides)
@@ -175,6 +176,14 @@ Generate a new job class:
 
 ```bash
 docker compose exec web php console g:job SendEmail
+```
+
+#### Create event
+
+Generate a new event class:
+
+```bash
+docker compose exec web php console g:event UserRegistered
 ```
 
 ### Database
