@@ -120,6 +120,10 @@ phast-app/
 ├── routes/
 │   └── web.php              # Route definitions
 ├── storage/
+│   ├── cache/               # Application cache
+│   │   ├── app/             # Application-specific cache
+│   │   ├── config.php       # Cached configuration
+│   │   └── routes.php       # Cached routes
 │   └── logs/                # Log files
 ├── console                  # CLI entrypoint
 ├── docker-compose.yml       # Docker Compose configuration

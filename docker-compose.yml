@@ -92,7 +92,6 @@ services:
     volumes:
       - .:/var/www/html
 
-
   worker:
     build:
       context: .
