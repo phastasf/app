@@ -25,4 +25,14 @@ return function (Router $router): void {
     $router->route('/error', function () {
         throw new \Exception('Test error/exception handling');
     });
+
+    $router->group('/api', function (Router $router) {
+
+        $router->route('/status', function ($request, ResponseFactoryInterface $responseFactory) {
+            $response = $responseFactory->createResponse();
+            $response->getBody()->write('OK');
+
+            return $response;
+        }, ['GET']);
+    });
 };

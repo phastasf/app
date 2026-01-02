@@ -80,8 +80,9 @@ Once the Docker services are running, you can access:
 ### Example Routes
 
 - `GET /` - Home page (renders welcome view)
-- `GET /about` - About page (closure example)
+- `GET /health` - Health check endpoint
 - `GET /error` - Error handling test route
+- `GET /api/status` - API status endpoint (example of route groups)
 
 ### Docker Services
 
