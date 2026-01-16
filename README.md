@@ -291,8 +291,10 @@ return [
     // Core middleware (required for framework to work)
     \Phast\Middleware\ErrorHandlerMiddleware::class,
     \Phast\Middleware\SessionMiddleware::class,
+    // Client IP detection middleware (must be before routing)
+    \Phast\Middleware\ClientIpMiddleware::class,
     // \Phast\Middleware\AuthMiddleware::class,  // Uncomment to enable authentication
-    // Add your custom middleware here
+    // Add your custom middleware here (before routing)
     // \App\Middleware\CustomMiddleware::class,
     \Phast\Middleware\RoutingMiddleware::class,
     \Phast\Middleware\DispatcherMiddleware::class,
@@ -300,6 +302,8 @@ return [
 ```
 
 Middleware is executed in the order defined in the array. Core middleware must remain in their positions for the framework to function correctly.
+
+The `ClientIpMiddleware` correctly detects client IP addresses when running behind a reverse proxy (like Traefik). It reads trusted proxy configuration from `config/proxies.php` if it exists.
 
 ### Service Providers
 
