@@ -2,6 +2,7 @@ services:
   mailcatcher:
     image: syncloudsoftech/mailcatcher
     labels:
+      - traefik.enable=false
       - traefik.http.routers.mailcatcher.entrypoints=web,websecure
       - traefik.http.routers.mailcatcher.rule=Host(`mailcatcher.local.dev`)
       - traefik.http.routers.mailcatcher.tls=true
@@ -18,7 +19,7 @@ services:
       MYSQL_PASSWORD: phastapp
       MYSQL_RANDOM_ROOT_PASSWORD: "yes"
     labels:
-      - "traefik.enable=false"
+      - traefik.enable=false
     ports:
       - "3306:3306"
     volumes:
@@ -33,6 +34,7 @@ services:
       PMA_USER: phastapp
       PMA_PASSWORD: phastapp
     labels:
+      - traefik.enable=true
       - traefik.http.routers.phpmyadmin.entrypoints=web,websecure
       - traefik.http.routers.phpmyadmin.rule=Host(`phpmyadmin.local.dev`)
       - traefik.http.routers.phpmyadmin.tls=true
@@ -52,16 +54,25 @@ services:
     environment:
       RI_REDIS_HOST: redis
     labels:
+      - traefik.enable=true
       - traefik.http.routers.redis-insight.entrypoints=web,websecure
       - traefik.http.routers.redis-insight.rule=Host(`redis-insight.local.dev`)
       - traefik.http.routers.redis-insight.tls=true
       - traefik.http.services.redis-insight.loadbalancer.server.port=8081
 
   traefik:
-    image: traefik:banon
+    image: traefik:v2.11
     labels:
-      - traefik.enable=false
-      - traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--providers.docker.endpoint=unix:///var/run/docker.sock"
+      - "--providers.file.directory=/etc/traefik/dynamic_conf"
+      - "--api.insecure=true"
+      - "--api.dashboard=true"
     ports:
       - "80:80"
       - "443:443"
@@ -85,6 +96,7 @@ services:
       retries: 3
       start_period: 15s
     labels:
+      - traefik.enable=true
       - traefik.http.routers.web.entrypoints=web,websecure
       - traefik.http.routers.web.rule=Host(`web.local.dev`)
       - traefik.http.routers.web.tls=true
