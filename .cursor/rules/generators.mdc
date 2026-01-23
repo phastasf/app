@@ -1,0 +1,14 @@
+---
+alwaysApply: true
+---
+
+Use below commands as: php console <command_name> <command_args> whenever needed:
+
+- `g:command` - Generate console command
+- `g:controller` - Generate controller
+- `g:event` - Generate event class
+- `g:job` - Generate job
+- `g:middleware` - Generate middleware class
+- `g:migration` - Generate migration
+- `g:model` - Generate model
+- `g:provider` - Generate service provider

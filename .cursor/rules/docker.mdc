@@ -1,0 +1,5 @@
+---
+alwaysApply: true
+---
+
+For running php e.g., "php console ..." or composer e.g., "composer require ..." commands, always use: docker compose exec web <php_or_composer_command>
