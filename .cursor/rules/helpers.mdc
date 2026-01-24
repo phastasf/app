@@ -1,0 +1,6 @@
+---
+alwaysApply: true
+---
+
+- phastasf/framework exposes a env($env_var_name, $default_value = null) helper for something needed from environment
+- vaibhavpandeyvpz/phew has a e($unescaped_string): string helper method that can be used in templates e.g., $this->e(...) to escape text
