@@ -1,5 +1,7 @@
 RewriteEngine On
 
+DirectoryIndex index.html index.php
+
 # include authorization header
 RewriteCond %{HTTP:Authorization} ^(.*)
 RewriteRule .* - [E=HTTP_AUTHORIZATION:%1]

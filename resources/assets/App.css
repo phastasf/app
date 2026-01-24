@@ -1,0 +1,146 @@
+.app-container {
+    min-height: 100vh;
+    background-color: #f9fafb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.welcome-card {
+    max-width: 48rem;
+    width: 100%;
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    border: 1px solid #e5e7eb;
+    padding: 1.5rem 2rem;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.header h1 {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+    font-weight: 600;
+    color: #111827;
+    margin: 0 0 0.5rem 0;
+}
+
+.subtitle {
+    font-size: 1rem;
+    color: #4b5563;
+    margin: 0;
+}
+
+.features-section {
+    margin-bottom: 1.5rem;
+}
+
+.features-section h2 {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    font-weight: 600;
+    color: #111827;
+    margin: 0 0 1rem 0;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 0.5rem;
+}
+
+@media (min-width: 768px) {
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    font-size: 0.875rem;
+    color: #374151;
+    padding: 0.375rem 0;
+}
+
+.check-icon {
+    width: 1rem;
+    height: 1rem;
+    color: #16a34a;
+    margin-right: 0.5rem;
+    flex-shrink: 0;
+}
+
+.api-status {
+    margin: 1rem 0;
+    padding: 0.75rem 1rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.api-status-loading {
+    background-color: #f3f4f6;
+    color: #6b7280;
+    border: 1px solid #e5e7eb;
+}
+
+.api-status-success {
+    background-color: #d1fae5;
+    color: #065f46;
+    border: 1px solid #10b981;
+}
+
+.api-status-error {
+    background-color: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #ef4444;
+}
+
+.api-status small {
+    font-size: 0.75rem;
+    opacity: 0.8;
+}
+
+.footer {
+    padding-top: 1.5rem;
+    border-top: 1px solid #e5e7eb;
+    text-align: center;
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 0.375rem;
+    text-decoration: none;
+    transition: all 0.2s;
+    margin: 0 0.375rem;
+}
+
+.btn-primary {
+    color: white;
+    background-color: #111827;
+}
+
+.btn-primary:hover {
+    background-color: #1f2937;
+}
+
+.btn-secondary {
+    color: #374151;
+    background-color: white;
+    border: 1px solid #d1d5db;
+}
+
+.btn-secondary:hover {
+    background-color: #f9fafb;
+}

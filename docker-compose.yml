@@ -1,4 +1,25 @@
 services:
+  api:
+    build:
+      context: .
+    depends_on:
+      - mysql
+      - redis
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.api.entrypoints=web,websecure
+      - traefik.http.routers.api.rule=Host(`api.local.dev`)
+      - traefik.http.routers.api.tls=true
+      - traefik.http.services.api.loadbalancer.server.port=80
+    volumes:
+      - .:/var/www/html
+
   mailcatcher:
     image: syncloudsoftech/mailcatcher
     labels:
@@ -83,26 +104,38 @@ services:
       - ./traefik.yml:/etc/traefik/traefik.yml:ro
       - ./traefik-tls.yml:/etc/traefik/dynamic_conf/traefik-tls.yml:ro
 
+  web-dependencies:
+    image: node:22-alpine
+    # Using Node.js 22 (LTS) as required by Vite 7.2+ (requires 20.19+ or 22.12+)
+    command: yarn install --frozen-lockfile
+    restart: "no"
+    volumes:
+      - .:/app
+      - node-modules:/app/node_modules # Shared node_modules volume
+    working_dir: /app
+
   web:
-    build:
-      context: .
+    image: node:22-alpine
+    command: yarn dev
+    # Note: --host 0.0.0.0 is already configured in vite.config.js
     depends_on:
-      - mysql
-      - redis
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 15s
+      api:
+        condition: service_healthy
+      web-dependencies:
+        condition: service_completed_successfully
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true # Enable polling for file changes in Docker
     labels:
       - traefik.enable=true
       - traefik.http.routers.web.entrypoints=web,websecure
       - traefik.http.routers.web.rule=Host(`web.local.dev`)
       - traefik.http.routers.web.tls=true
-      - traefik.http.services.web.loadbalancer.server.port=80
+      - traefik.http.services.web.loadbalancer.server.port=5173
     volumes:
-      - .:/var/www/html
+      - .:/app # Mount source code for hot reloading
+      - node-modules:/app/node_modules # Shared node_modules volume
+    working_dir: /app
 
   worker:
     build:
@@ -118,4 +151,5 @@ services:
 
 volumes:
   mysql-data:
+  node-modules:
   redis-data:

@@ -1,3 +1,23 @@
+# Build frontend with Node
+FROM node:22-alpine AS frontend-builder
+
+WORKDIR /app
+
+# Copy package files
+COPY package.json yarn.lock ./
+
+# Install dependencies
+RUN yarn install --frozen-lockfile
+
+# Copy frontend source files
+COPY resources/assets ./resources/assets
+COPY vite.config.ts tsconfig*.json ./
+COPY eslint.config.js .
+
+# Build frontend
+RUN yarn build
+
+# PHP application container
 FROM php:8.5-apache
 
 # install basic utilities
@@ -80,8 +100,12 @@ COPY composer.json composer.lock ./
 # install composer deps
 RUN composer install --no-autoloader --no-dev --no-interaction --no-scripts
 
-# copy project files
+# copy project files (excluding frontend source and node_modules)
 COPY . .
+
+# copy built frontend assets from builder stage (overwrites any existing)
+COPY --from=frontend-builder /app/public_html/assets ./public_html/assets
+COPY --from=frontend-builder /app/public_html/index.html ./public_html/index.html
 
 # generate autoload files
 RUN composer dump-autoload --optimize

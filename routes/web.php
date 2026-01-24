@@ -13,7 +13,7 @@ use Tez\Router;
  */
 return function (Router $router): void {
 
-    $router->route('/', 'HomeController@index');
+    $router->route('/welcome', 'HomeController@index');
 
     $router->route('/health', function ($request, ResponseFactoryInterface $responseFactory) {
         $response = $responseFactory->createResponse();
@@ -29,7 +29,7 @@ return function (Router $router): void {
     $router->group('/api', function (Router $router) {
 
         $router->route('/status', function ($request, ResponseFactoryInterface $responseFactory) {
-            $response = $responseFactory->createResponse();
+            $response = $responseFactory->createResponse(200);
             $response->getBody()->write('OK');
 
             return $response;
