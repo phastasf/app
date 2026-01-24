@@ -116,7 +116,7 @@ phast-app/
 │   └── migrations/          # Database migrations
 ├── .docker/                 # Docker configuration files
 │   └── vhost.conf           # Apache virtual host configuration
-├── public/                  # Web server document root
+├── public_html/             # Web server document root
 │   ├── index.php            # Web entrypoint
 │   └── .htaccess            # Apache rewrite rules
 ├── resources/

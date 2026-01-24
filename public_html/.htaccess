@@ -1,9 +1,5 @@
 RewriteEngine On
 
-# block certain files
-RedirectMatch 403 ^/composer.*
-RedirectMatch 403 ^/vendor
-
 # include authorization header
 RewriteCond %{HTTP:Authorization} ^(.*)
 RewriteRule .* - [E=HTTP_AUTHORIZATION:%1]
